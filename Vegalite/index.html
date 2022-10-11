@@ -1,124 +1,64 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <script src="https://cdn.jsdelivr.net/npm/vega@5.22.1"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.2.0"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.20.8"></script>
+  <title>DataVisualisationProject2</title>
+  <!-- Import Vega & Vega-Lite (does not have to be from CDN) -->
+  <script src="https://cdn.jsdelivr.net/npm/vega@5.20.2"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
+
+  <!-- Import pure.css -->
+  <link rel="stylesheet" href="https://unpkg.com/purecss@2.0.3/build/pure-min.css"
+    integrity="sha384-cg6SkqEOCV1NbJoCu11+bm0NvBRc8IYLRGXkmNrqUBfTjmMYwNKPWBTIKyw9mHNJ" crossorigin="anonymous">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Google font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+
+  <!-- CSS file -->
+  <link rel="stylesheet" type="text/css" href="./styles/styles.css" media="all">
+
+
 </head>
+
 <body>
-  <div id="vis"/>
-  <script>
-    const spec = {
-  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "vconcat": [
-    {
-      "title": "Total Plantation Area Per Prefecture/Region of Japan, 2020",
-      "width": 600,
-      "height": 600,
-      "projection": {"type": "equirectangular"},
-      "data": {
-        "url": "https://raw.githubusercontent.com/BigYajuu/fit3179-vegalite/main/Vegalite/map/ne_10m_JPN.topojson",
-        "format": {
-          "type": "topojson",
-          "feature": "ne_10m_admin_1_states_provinces"
-        }
-      },
-      "transform": [
-        {
-          "fold": [
-            "total_plant_area",
-            "paddy_rice_plant_area",
-            "soybean_plant_area",
-            "vegetable_plant_area",
-            "fruit_plant_area",
-            "others_plant_area"
-          ]
-        },
-        {
-          "lookup": "properties.name",
-          "from": {
-            "data": {
-              "url": "https://raw.githubusercontent.com/BigYajuu/fit3179-vegalite/main/Vegalite/raw_data/j363-02-c2-015_plant_area.csv"
-            },
-            "key": "prefectures_jpn",
-            "fields": [
-              "total_plant_area",
-              "paddy_rice_plant_area",
-              "soybean_plant_area",
-              "vegetable_plant_area",
-              "fruit_plant_area",
-              "others_plant_area"
-            ]
-          }
-        },
-        {"filter": "datum.total_plant_area > area_slider"}
-      ],
-      "mark": {"type": "geoshape", "stroke": "gray"},
-      "encoding": {
-        "color": {
-          "field": "total_plant_area",
-          "title": "Plantation Area (ha)",
-          "type": "quantitative"
-        },
-        "tooltip": [
-          {"field": "properties.name", "type": "nominal", "title": "Region"},
-          {
-            "field": "total_plant_area",
-            "type": "quantitative",
-            "title": "Plantation Area (ha)"
-          }
-        ]
-      }
-    },
-    {
-      "title": "Bar chart for Total Plantation Area per Prefecture/Region of Japan, 2020",
-      "layer": [
-        {"mark": {"type": "bar", "tooltip": true}},
-        {
-          "mark": {
-            "type": "text",
-            "align": "left",
-            "baseline": "bottom",
-            "dx": -10
-          },
-          "encoding": {
-            "text": {"field": "total_plant_area", "type": "quantitative"}
-          }
-        }
-      ],
-      "data": {
-        "url": "https://raw.githubusercontent.com/BigYajuu/fit3179-vegalite/main/Vegalite/raw_data/j363-02-c2-015_plant_area.csv"
-      },
-      "encoding": {
-        "x": {"field": "prefectures_jpn", "type": "nominal"},
-        "y": {"field": "total_plant_area", "type": "quantitative"},
-        "color": {"field": "total_plant_area", "type": "quantitative"},
-        "tooltip": [
-          {
-            "field": "total_plant_area",
-            "type": "quantitative",
-            "title": "Plantation Area (ha)"
-          }
-        ]
-      }
-    }
-  ],
-  "params": [
-    {
-      "name": "area_slider",
-      "value": 0,
-      "bind": {
-        "input": "range",
-        "min": 0,
-        "max": 15000,
-        "step": 100,
-        "name": "Show area (ha) larger than: "
-      }
-    }
-  ],
-  "config": {}
-};
-    vegaEmbed("#vis", spec, {mode: "vega-lite"}).then(console.log).catch(console.warn);
+
+  <div class="page">
+
+    <!-- pure grid group -->
+    <div class="pure-g">
+      <div class="pure-u-1-2">
+        <h2>Left</h2>
+        <div id="vis1" class="vis-container"></div>
+
+      </div>
+      <div class="pure-u-1-2">
+        <h2>Right</h2>
+        <div id="vis2" class="vis-container" style="margin-left: 50px;"></div>
+      </div>
+
+    </div>
+    <!-- end pure grid group -->
+
+
+  </div> <!-- end page -->
+
+  <script type="text/javascript">
+    var constructVis1 = "./constuct/vis1.json";
+    var constructVis2 = "./constuct/vis2.json";
+
+
+    vegaEmbed("#vis1", constructVis1, {mode: "vega-lite"}).then(console.log).catch(console.warn);
+
+    vegaEmbed('#vis2', constructVis2, { "actions": false }).then(function (result) {
+      // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+    }).catch(console.error);
+
+
   </script>
 </body>
+
 </html>
