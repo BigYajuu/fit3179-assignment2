@@ -77,3 +77,8 @@ h1 {
 .small-font {
     font-size: 14px;
 }
+
+#column_div {
+  display: flex;
+  align-items: center;
+}
