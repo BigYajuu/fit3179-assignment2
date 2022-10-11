@@ -1,12 +1,11 @@
 {
-
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "data": {
     "url": "https://raw.githubusercontent.com/BigYajuu/fit3179-vegalite/main/Vegalite/map/ne_10m_JPN.topojson",
     "format": {"type": "topojson", "feature": "ne_10m_admin_1_states_provinces"}
   },
   "repeat": ["paddy_rice_plant_area", "soybean_plant_area", "vegetable_plant_area", "fruit_plant_area", "others_plant_area"],
-  "columns": 1,
+  "columns": 5,
   "spec": {
     "projection": {"type": "equirectangular"},
     "transform": [
@@ -33,10 +32,10 @@
             "#FF99D7",
             "#D58BDD",
             "#905E96",
-            "#905E96",
-            "#905E96",
-            "#905E96",
-            "#905E96"
+            "#80407a",
+            "#80407a",
+            "#80407a",
+            "#80407a"
           ]
         }
       },

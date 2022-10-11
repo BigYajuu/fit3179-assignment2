@@ -83,6 +83,15 @@ h1 {
   align-items: center;
 }
 
-#upper_align_div {
+#top_align_div {
   vertical-align: top
+}
+
+table {
+  width: 1000px
+}
+
+td {
+  width: 20%;
+  text-align: center
 }
