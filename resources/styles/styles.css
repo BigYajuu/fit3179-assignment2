@@ -53,6 +53,11 @@ mark.bronze {
     padding-top: 35px;
 }
 
+.pure-g {
+  text-align:center;
+  justify-content: center;
+}
+
 .vis-container {
     width: 100%;
 }
@@ -81,6 +86,7 @@ h1 {
 #column_div {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 #top_align_div {
@@ -88,7 +94,8 @@ h1 {
 }
 
 table {
-  width: 1130px
+  width: 1130px;
+  justify-content: center;
 }
 
 td {
