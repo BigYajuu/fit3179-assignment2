@@ -53,7 +53,7 @@ mark.bronze {
 }
 
 .page {
-    width: 1600px;
+    width: 90%;
 
     background-color: white;
     margin: auto;
@@ -91,7 +91,9 @@ h1 {
     font-size: 14px;
 }
 
-
+#title_div {
+  background-color: lightblue;
+}
 
 #column_div {
   display: flex;
@@ -100,11 +102,11 @@ h1 {
 }
 
 #top_align_div {
-  vertical-align: top
+  vertical-align: top;
 }
 
 table {
-  width: 1130px;
+  width: 1500px;
   justify-content: center;
 }
 
