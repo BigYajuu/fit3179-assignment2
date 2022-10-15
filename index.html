@@ -277,6 +277,37 @@
       ],
       "config": {}
     };
+
+    var constructVisLandArea = {
+      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+      "width": 300, "height": 300,
+      "data": {"url": "https://raw.githubusercontent.com/BigYajuu/fit3179-assignment2/main/resources/raw_data/land_use_ha.csv"},
+      "mark": "area",
+      "params": [{
+        "name": "land_type",
+        "select": {"type": "point", "fields": ["land_use"]},
+        "bind": "legend"
+      }],
+      "encoding": {
+        "x": {
+          "timeUnit": "year", "field": "year",
+          "axis": {"format": "%Y"}
+        },
+        "y": {
+          "aggregate": "sum", "field": "area"
+        },
+        "color": {
+          "field": "land_use"
+        },
+        "opacity": {
+          "condition": {"param": "land_type", "value": 1},
+          "value": 0.2
+        },
+        "tooltip": {
+
+        }
+      }
+    };
     // var constructVis2 = "./vis2.json";
 
     vegaEmbed('#vis1', constructVis1, { "actions": false }).then(function (result) {
