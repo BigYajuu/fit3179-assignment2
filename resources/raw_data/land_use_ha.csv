@@ -1,5 +1,4 @@
-Country Name,Country ISO3,Year,Indicator Name,Indicator Code,Value
-#country+name,#country+code,#date+year,#indicator+name,#indicator+code,#indicator+value+num
+country_name,country_iso3,year,land_use,indicator_code,area
 Japan,JPN,2020,Agricultural land,AG.LND.AGRI.K2,4372000
 Japan,JPN,2019,Agricultural land,AG.LND.AGRI.K2,4397000
 Japan,JPN,2018,Agricultural land,AG.LND.AGRI.K2,4420000
