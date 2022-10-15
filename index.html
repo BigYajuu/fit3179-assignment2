@@ -76,6 +76,21 @@
         <h3>Of all the prefectures and regions, <b>Hokkaido</b> is the leading ground for the Japanese agricultural industries as it tops the production of <i>wheat, rice, vegetables</i> and many more.</h3>
         </center>
       </div>
+
+      <div class="pure-u-1-1">
+        <center>
+          <h2>Land Use over the Years</h2>
+          <div id="visLandArea" class="vis-container"/>
+        </center>
+      </div>
+
+      <div class="pure-u-1-1">
+        <center>
+          <h2>Proportions of Land Use in each Prefecture/Region</h2>
+          <div id="visPrefPie" class="vis-container"/>
+        </center>
+      </div>
+
     </div>
   </div>
   <!-- end page -->
@@ -314,6 +329,93 @@
           }]
       }
     };
+
+    var constructVisPrefPie = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {"url": "https://raw.githubusercontent.com/BigYajuu/fit3179-assignment2/main/resources/raw_data/j363-02-c2-015_plant_area.csv"},
+  "transform": [
+    {"fold": ["paddy_rice_plant_area", "soybean_plant_area", "vegetable_plant_area", "fruit_plant_area", "others_plant_area"]},
+    {"calculate": "format(datum.value/datum.total_plant_area, '.4p')", "as": "perc"},
+    {"filter": "region_select == datum.prefectures_jpn"},
+    {"calculate": "{'paddy_rice_plant_area': 'Paddy Rice', 'soybean_plant_area': 'Soybean', 'vegetable_plant_area': 'Vegetable', 'fruit_plant_area': 'Fruit', 'others_plant_area': 'Others'}[datum.key]", "as": "land_type"}
+    ],
+  "params": [
+    {
+      "name": "region_select",
+      "value": "Hokkaido",
+      "bind": {
+        "input": "select",
+        "options": [
+          "Aichi",
+          "Akita",
+          "Aomori",
+          "Chiba",
+          "Ehime",
+          "Fukui",
+          "Fukuoka",
+          "Fukushima",
+          "Gifu",
+          "Gunma",
+          "Hiroshima",
+          "Hokkaido",
+          "Hyogo",
+          "Ibaraki",
+          "Ishikawa",
+          "Iwate",
+          "Kagawa",
+          "Kagoshima",
+          "Kanagawa",
+          "Kochi",
+          "Kumamoto",
+          "Kyoto",
+          "Mie",
+          "Miyagi",
+          "Miyazaki",
+          "Nagano",
+          "Nagasaki",
+          "Nara",
+          "Niigata",
+          "Oita",
+          "Okayama",
+          "Okinawa",
+          "Osaka",
+          "Saga",
+          "Saitama",
+          "Shiga",
+          "Shimane",
+          "Shizuoka",
+          "Tochigi",
+          "Tokushima",
+          "Tokyo",
+          "Tottori",
+          "Toyama",
+          "Wakayama",
+          "Yamagata",
+          "Yamaguchi",
+          "Yamanashi"
+        ],
+        "name": "Region"
+      }
+    }
+  ],
+  "layer": [{
+    "mark": {"type": "arc", "innerRadius": 20, "stroke": "#fff"}
+  },{
+    "mark": {"type": "text", "radiusOffset": 10},
+    "encoding": {
+      "text": {"field": "total_plant_area", "type": "quantitative"}
+    }
+  }],
+  "encoding": {
+    "theta": {"field": "value", "type": "quantitative"},
+    "color": {"field": "key", "type": "nominal", "title": "Land Type",
+      "legend": {"labelExpr": "{'paddy_rice_plant_area': 'Paddy Rice', 'soybean_plant_area': 'Soybean', 'vegetable_plant_area': 'Vegetable', 'fruit_plant_area': 'Fruit', 'others_plant_area': 'Others'}[datum.label]"}},
+    "tooltip": [
+      {"field": "land_type", "title": "Type"},
+      {"field": "perc", "title": "Percentage"}
+    ]
+  }
+};
     // var constructVis2 = "./vis2.json";
 
     vegaEmbed('#vis1', constructVis1, { "actions": false }).then(function (result) {
@@ -321,6 +423,14 @@
     }).catch(console.error);
 
     vegaEmbed('#vis2', constructVis2, { "actions": false }).then(function (result) {
+      // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+    }).catch(console.error);
+
+    vegaEmbed('#visLandArea', constructVisLandArea, { "actions": false }).then(function (result) {
+      // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
+    }).catch(console.error);
+
+    vegaEmbed('#visPrefPie', constructVisPrefPie, { "actions": false }).then(function (result) {
       // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
     }).catch(console.error);
 

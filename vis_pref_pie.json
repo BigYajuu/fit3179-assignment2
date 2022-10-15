@@ -1,0 +1,79 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {"url": "https://raw.githubusercontent.com/BigYajuu/fit3179-assignment2/main/resources/raw_data/j363-02-c2-015_plant_area.csv"},
+  "transform": [
+    {"fold": ["paddy_rice_plant_area", "soybean_plant_area", "vegetable_plant_area", "fruit_plant_area", "others_plant_area"]},
+    {"filter": "region_select == datum.prefectures_jpn"}
+    ],
+  "params": [
+    {
+      "name": "region_select",
+      "value": "Hokkaido",
+      "bind": {
+        "input": "select",
+        "options": [
+          "Aichi",
+          "Akita",
+          "Aomori",
+          "Chiba",
+          "Ehime",
+          "Fukui",
+          "Fukuoka",
+          "Fukushima",
+          "Gifu",
+          "Gunma",
+          "Hiroshima",
+          "Hokkaido",
+          "Hyogo",
+          "Ibaraki",
+          "Ishikawa",
+          "Iwate",
+          "Kagawa",
+          "Kagoshima",
+          "Kanagawa",
+          "Kochi",
+          "Kumamoto",
+          "Kyoto",
+          "Mie",
+          "Miyagi",
+          "Miyazaki",
+          "Nagano",
+          "Nagasaki",
+          "Nara",
+          "Niigata",
+          "Oita",
+          "Okayama",
+          "Okinawa",
+          "Osaka",
+          "Saga",
+          "Saitama",
+          "Shiga",
+          "Shimane",
+          "Shizuoka",
+          "Tochigi",
+          "Tokushima",
+          "Tokyo",
+          "Tottori",
+          "Toyama",
+          "Wakayama",
+          "Yamagata",
+          "Yamaguchi",
+          "Yamanashi"
+        ],
+        "name": "Region"
+      }
+    }
+  ],
+  "layer": [{
+    "mark": {"type": "arc", "innerRadius": 20, "stroke": "#fff"}
+  },{
+    "mark": {"type": "text", "radiusOffset": 10},
+    "encoding": {
+      "text": {"field": "total_plant_area", "type": "quantitative"}
+    }
+  }],
+  "encoding": {
+    "theta": {"field": "value", "type": "quantitative"},
+    "color": {"field": "key", "type": "nominal"}
+  }
+}

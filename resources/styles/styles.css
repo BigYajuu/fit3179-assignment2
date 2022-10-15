@@ -91,6 +91,10 @@ h1 {
     font-size: 14px;
 }
 
+#vg-tooltip-element {
+  width: 100;
+}
+
 #title_div {
   background-color: lightblue;
 }
