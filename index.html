@@ -291,21 +291,27 @@
       "encoding": {
         "x": {
           "timeUnit": "year", "field": "year",
+          "title": "Year",
           "axis": {"format": "%Y"}
         },
         "y": {
-          "aggregate": "sum", "field": "area"
+          "aggregate": "sum", "field": "area", "title": "Land Area (ha)"
         },
         "color": {
-          "field": "land_use"
+          "field": "land_use",
+          "title": "Land types"
         },
         "opacity": {
           "condition": {"param": "land_type", "value": 1},
           "value": 0.2
         },
-        "tooltip": {
-
-        }
+        "tooltip": [{
+            "field": "land_use", "type": "nominal", "title": "Land Type"
+          }, {
+            "timeUnit": "year", "field": "year", "type": "ordinal", "title": "Year"
+          }, {
+            "field": "area", "type": "quantitative", "title": "Area (in hectares)"
+          }]
       }
     };
     // var constructVis2 = "./vis2.json";
