@@ -42,7 +42,7 @@
 
       <div class="pure-u-1-1">
         <center>
-          <table>
+          <table style="width: 90%">
             <tr>
               <td><h4>Paddy Rice</h4></td>
               <td><h4>Soybean</h4></td>
@@ -98,84 +98,85 @@
   <!-- end page -->
 
   <script type="text/javascript">
+    var getDisplayWidth = window.innerWidth*0.8;
     var constructVis1 = {
-  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "data": {
-    "url": "https://raw.githubusercontent.com/BigYajuu/fit3179-vegalite/main/Vegalite/map/ne_10m_JPN.topojson",
-    "format": {"type": "topojson", "feature": "ne_10m_admin_1_states_provinces"}
-  },
-  "config": {
-    "style": {
-      "cell": {
-        "stroke": "transparent"
-      }
-    }
-  },
-  "spacing": 0,
-  "repeat": ["paddy_rice_plant_area", "soybean_plant_area", "vegetable_plant_area", "fruit_plant_area", "others_plant_area"],
-  "columns": 5,
-  "spec": {
-    "width": 300,
-    "height": 350,
-    "projection": {"type": "equirectangular"},
-    "transform": [
-      {
-        "lookup": "properties.name",
-        "from": {
-          "data": {
-            "url": "https://raw.githubusercontent.com/BigYajuu/fit3179-vegalite/main/Vegalite/raw_data/j363-02-c2-015_plant_area.csv"
-          },
-          "key": "prefectures_jpn",
-          "fields": ["paddy_rice_plant_area", "soybean_plant_area", "vegetable_plant_area", "fruit_plant_area", "others_plant_area"]
-        }
-      }
-    ],
-    "mark": {"type": "geoshape", "stroke": "gray"},
-    "encoding": {
-      "x": {"field": {"repeat": "repeat"}, "bin": true},
-      "color": {
-        "field": {"repeat": "repeat"},
-        "title": "Plantation Area (ha)",
-        "type": "quantitative",
-        "legend": {
-          "direction": "vertical",
-          "orient": "top-left"
-        },
-        "scale": {
-          "range": [
-            "#fffdf5",
-            "#e6b29a",
-            "#dea287",
-            "#cf8282",
-            "#D885A3",
-            "#7165a3",
-            "#7165a3",
-            "#43396e",
-            "#241d45",
-            "#241d45",
-            "#201840",
-            "#19113d",
-            "#19113d"
-          ]
+      "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+      "data": {
+        "url": "https://raw.githubusercontent.com/BigYajuu/fit3179-vegalite/main/Vegalite/map/ne_10m_JPN.topojson",
+        "format": {"type": "topojson", "feature": "ne_10m_admin_1_states_provinces"}
+      },
+      "config": {
+        "style": {
+          "cell": {
+            "stroke": "transparent"
+          }
         }
       },
-      "tooltip": [
-        {"field": "properties.name", "type": "nominal", "title": "Region"},
-        {
-          "field": {"repeat": "repeat"},
-          "type": "quantitative",
-          "title": "Plantation Area (ha)"
+      "spacing": 0,
+      "repeat": ["paddy_rice_plant_area", "soybean_plant_area", "vegetable_plant_area", "fruit_plant_area", "others_plant_area"],
+      "columns": 5,
+      "spec": {
+        "width": getDisplayWidth/5,
+        "height": 350,
+        "projection": {"type": "equirectangular"},
+        "transform": [
+          {
+            "lookup": "properties.name",
+            "from": {
+              "data": {
+                "url": "https://raw.githubusercontent.com/BigYajuu/fit3179-vegalite/main/Vegalite/raw_data/j363-02-c2-015_plant_area.csv"
+              },
+              "key": "prefectures_jpn",
+              "fields": ["paddy_rice_plant_area", "soybean_plant_area", "vegetable_plant_area", "fruit_plant_area", "others_plant_area"]
+            }
+          }
+        ],
+        "mark": {"type": "geoshape", "stroke": "gray"},
+        "encoding": {
+          "x": {"field": {"repeat": "repeat"}, "bin": true},
+          "color": {
+            "field": {"repeat": "repeat"},
+            "title": "Plantation Area (ha)",
+            "type": "quantitative",
+            "legend": {
+              "direction": "vertical",
+              "orient": "top-left"
+            },
+            "scale": {
+              "range": [
+                "#fffdf5",
+                "#e6b29a",
+                "#dea287",
+                "#cf8282",
+                "#D885A3",
+                "#7165a3",
+                "#7165a3",
+                "#43396e",
+                "#241d45",
+                "#241d45",
+                "#201840",
+                "#19113d",
+                "#19113d"
+              ]
+            }
+          },
+          "tooltip": [
+            {"field": "properties.name", "type": "nominal", "title": "Region"},
+            {
+              "field": {"repeat": "repeat"},
+              "type": "quantitative",
+              "title": "Plantation Area (ha)"
+            }
+          ]
         }
-      ]
-    }
-  }
-};
+      }
+    };
 
     var constructVis2 = {
       "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
       "hconcat": [
         {
-          "width": 800,
+          "width": getDisplayWidth*0.75,
           "height": 1000,
           "projection": {"type": "equirectangular"},
           "data": {
@@ -233,7 +234,7 @@
           }
         },
         {
-          "width": 200,
+          "width": getDisplayWidth*0.15,
           "height": 1000,
           "layer": [
             {"mark": {"type": "bar", "tooltip": true}},
@@ -287,17 +288,24 @@
             "input": "range",
             "min": 0,
             "max": 15000,
-            "step": 100,
+            "step": 20,
             "name": "Show area (ha) larger than: "
           }
         }
       ],
-      "config": {}
+      "config": {
+        "style": {
+          "cell": {
+            "stroke": "transparent"
+          }
+        }
+      },
     };
 
     var constructVisLandArea = {
       "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-      "width": 300, "height": 300,
+      "width": getDisplayWidth*0.4,
+      "height": 500,
       "data": {"url": "https://raw.githubusercontent.com/BigYajuu/fit3179-assignment2/main/resources/raw_data/land_use_ha.csv"},
       "mark": "area",
       "params": [{
@@ -329,11 +337,20 @@
           }, {
             "field": "area", "type": "quantitative", "title": "Area (in hectares)"
           }]
-      }
+      },
+      "config": {
+        "style": {
+          "cell": {
+            "stroke": "transparent"
+          }
+        }
+      },
     };
 
     var constructVisPrefPie = {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": getDisplayWidth*0.4,
+  "height": 500,
   "data": {"url": "https://raw.githubusercontent.com/BigYajuu/fit3179-assignment2/main/resources/raw_data/j363-02-c2-015_plant_area.csv"},
   "transform": [
     {"fold": ["paddy_rice_plant_area", "soybean_plant_area", "vegetable_plant_area", "fruit_plant_area", "others_plant_area"]},
@@ -416,7 +433,14 @@
       {"field": "land_type", "title": "Type"},
       {"field": "perc", "title": "Percentage"}
     ]
-  }
+  },
+  "config": {
+    "style": {
+      "cell": {
+        "stroke": "transparent"
+      }
+    }
+  },
 };
     // var constructVis2 = "./vis2.json";
 
