@@ -420,13 +420,11 @@
   "layer": [{
     "mark": {"type": "arc", "innerRadius": 20, "stroke": "#fff"}
   },{
-    "mark": {"type": "text", "radiusOffset": 10},
-    "encoding": {
-      "text": {"field": "total_plant_area", "type": "quantitative"}
-    }
+    "mark": {"type": "text", "radiusOffset": 10}
   }],
   "encoding": {
     "theta": {"field": "value", "type": "quantitative"},
+    "radius": {"field": "value", "scale": {"type": "sqrt", "zero": true, "rangeMin": 20}},
     "color": {"field": "key", "type": "nominal", "title": "Land Type",
       "legend": {"labelExpr": "{'paddy_rice_plant_area': 'Paddy Rice', 'soybean_plant_area': 'Soybean', 'vegetable_plant_area': 'Vegetable', 'fruit_plant_area': 'Fruit', 'others_plant_area': 'Others'}[datum.label]"}},
     "tooltip": [
@@ -440,7 +438,7 @@
         "stroke": "transparent"
       }
     }
-  },
+  }
 };
     // var constructVis2 = "./vis2.json";
 

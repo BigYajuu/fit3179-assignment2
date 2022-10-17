@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": getDisplayWidth*0.4,
+  "width": 600,
   "height": 500,
   "data": {"url": "https://raw.githubusercontent.com/BigYajuu/fit3179-assignment2/main/resources/raw_data/j363-02-c2-015_plant_area.csv"},
   "transform": [
@@ -8,7 +8,7 @@
     {"calculate": "format(datum.value/datum.total_plant_area, '.4p')", "as": "perc"},
     {"filter": "region_select == datum.prefectures_jpn"},
     {"calculate": "{'paddy_rice_plant_area': 'Paddy Rice', 'soybean_plant_area': 'Soybean', 'vegetable_plant_area': 'Vegetable', 'fruit_plant_area': 'Fruit', 'others_plant_area': 'Others'}[datum.key]", "as": "land_type"}
-  ],
+    ],
   "params": [
     {
       "name": "region_select",
@@ -70,26 +70,24 @@
   ],
   "layer": [{
     "mark": {"type": "arc", "innerRadius": 20, "stroke": "#fff"}
-    },{
-      "mark": {"type": "text", "radiusOffset": 10},
-      "encoding": {
-        "text": {"field": "total_plant_area", "type": "quantitative"}
+  },{
+    "mark": {"type": "text", "radiusOffset": 10}
+  }],
+  "encoding": {
+    "theta": {"field": "value", "type": "quantitative"},
+    "radius": {"field": "value", "scale": {"type": "sqrt", "zero": true, "rangeMin": 20}},
+    "color": {"field": "key", "type": "nominal", "title": "Land Type",
+      "legend": {"labelExpr": "{'paddy_rice_plant_area': 'Paddy Rice', 'soybean_plant_area': 'Soybean', 'vegetable_plant_area': 'Vegetable', 'fruit_plant_area': 'Fruit', 'others_plant_area': 'Others'}[datum.label]"}},
+    "tooltip": [
+      {"field": "land_type", "title": "Type"},
+      {"field": "perc", "title": "Percentage"}
+    ]
+  },
+  "config": {
+    "style": {
+      "cell": {
+        "stroke": "transparent"
       }
-      }],
-      "encoding": {
-        "theta": {"field": "value", "type": "quantitative"},
-        "color": {"field": "key", "type": "nominal", "title": "Land Type",
-          "legend": {"labelExpr": "{'paddy_rice_plant_area': 'Paddy Rice', 'soybean_plant_area': 'Soybean', 'vegetable_plant_area': 'Vegetable', 'fruit_plant_area': 'Fruit', 'others_plant_area': 'Others'}[datum.label]"}},
-          "tooltip": [
-            {"field": "land_type", "title": "Type"},
-            {"field": "perc", "title": "Percentage"}
-          ]
-        },
-        "config": {
-          "style": {
-            "cell": {
-              "stroke": "transparent"
-            }
-          }
-        },
-      }
+    }
+  }
+}
