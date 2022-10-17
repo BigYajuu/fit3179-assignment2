@@ -1,10 +1,9 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "vconcat": [
+  "hconcat": [
     {
-      "title": "Total Plantation Area Per Prefecture/Region of Japan, 2020",
-      "width": 600,
-      "height": 600,
+      "width": 1000,
+      "height": 1000,
       "projection": {"type": "equirectangular"},
       "data": {
         "url": "https://raw.githubusercontent.com/BigYajuu/fit3179-vegalite/main/Vegalite/map/ne_10m_JPN.topojson",
@@ -61,7 +60,8 @@
       }
     },
     {
-      "title": "Bar chart for Total Plantation Area per Prefecture/Region of Japan, 2020",
+      "width": getDisplayWidth*0.15,
+      "height": 1000,
       "layer": [
         {"mark": {"type": "bar", "tooltip": true}},
         {
@@ -69,7 +69,8 @@
             "type": "text",
             "align": "left",
             "baseline": "bottom",
-            "dx": -10
+            "dx": 5,
+            "dy": 5
           },
           "encoding": {
             "text": {"field": "total_plant_area", "type": "quantitative"}
@@ -80,9 +81,21 @@
         "url": "https://raw.githubusercontent.com/BigYajuu/fit3179-vegalite/main/Vegalite/raw_data/j363-02-c2-015_plant_area.csv"
       },
       "encoding": {
-        "x": {"field": "prefectures_jpn", "type": "nominal"},
-        "y": {"field": "total_plant_area", "type": "quantitative"},
-        "color": {"field": "total_plant_area", "type": "quantitative"},
+        "x": {"field": "total_plant_area", "type": "quantitative", "title": "Area (ha)"},
+        "y": {"field": "prefectures_jpn", "type": "nominal", "title": "Prefectures/Regions"},
+        "color": {"field": "total_plant_area", "type": "quantitative", "scale": {
+          "range": [
+            "#FFD372",
+            "#FF99D7",
+            "#D58BDD",
+            "#905E96",
+            "#80407a",
+            "#80407a",
+            "#80407a",
+            "#80407a",
+            "#80407a"
+          ]
+        }},
         "tooltip": [
           {
             "field": "total_plant_area",
@@ -101,10 +114,16 @@
         "input": "range",
         "min": 0,
         "max": 15000,
-        "step": 100,
+        "step": 20,
         "name": "Show area (ha) larger than: "
       }
     }
   ],
-  "config": {}
+  "config": {
+    "style": {
+      "cell": {
+        "stroke": "transparent"
+      }
+    }
+  },
 }

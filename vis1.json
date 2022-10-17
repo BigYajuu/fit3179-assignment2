@@ -4,9 +4,19 @@
     "url": "https://raw.githubusercontent.com/BigYajuu/fit3179-vegalite/main/Vegalite/map/ne_10m_JPN.topojson",
     "format": {"type": "topojson", "feature": "ne_10m_admin_1_states_provinces"}
   },
+  "config": {
+    "style": {
+      "cell": {
+        "stroke": "transparent"
+      }
+    }
+  },
+  "spacing": 0,
   "repeat": ["paddy_rice_plant_area", "soybean_plant_area", "vegetable_plant_area", "fruit_plant_area", "others_plant_area"],
   "columns": 5,
   "spec": {
+    "width": 350,
+    "height": 350,
     "projection": {"type": "equirectangular"},
     "transform": [
       {
@@ -22,20 +32,30 @@
     ],
     "mark": {"type": "geoshape", "stroke": "gray"},
     "encoding": {
+      "x": {"field": {"repeat": "repeat"}, "bin": true},
       "color": {
         "field": {"repeat": "repeat"},
         "title": "Plantation Area (ha)",
         "type": "quantitative",
+        "legend": {
+          "direction": "vertical",
+          "orient": "top-left"
+        },
         "scale": {
           "range": [
-            "#FFD372",
-            "#FF99D7",
-            "#D58BDD",
-            "#905E96",
-            "#80407a",
-            "#80407a",
-            "#80407a",
-            "#80407a"
+            "#fffdf5",
+            "#e6b29a",
+            "#dea287",
+            "#cf8282",
+            "#D885A3",
+            "#7165a3",
+            "#7165a3",
+            "#43396e",
+            "#241d45",
+            "#241d45",
+            "#201840",
+            "#19113d",
+            "#19113d"
           ]
         }
       },
